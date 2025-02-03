@@ -1498,6 +1498,7 @@
           "DeveloperEvaluation.CrossCutting": "1.0.0",
           "DeveloperEvaluation.Domain": "1.0.0",
           "DeveloperEvaluation.Infrastructure": "1.0.0",
+          "Microsoft.Extensions.Logging": "9.0.1",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.21.0",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
@@ -1519,7 +1520,8 @@
           "DeveloperEvaluation.CrossCutting": "1.0.0",
           "DeveloperEvaluation.Domain": "1.0.0",
           "FluentValidation": "11.11.0",
-          "MediatR": "12.4.1"
+          "MediatR": "12.4.1",
+          "Microsoft.Extensions.Logging": "9.0.1"
         },
         "compile": {
           "bin/placeholder/DeveloperEvaluation.Application.dll": {}

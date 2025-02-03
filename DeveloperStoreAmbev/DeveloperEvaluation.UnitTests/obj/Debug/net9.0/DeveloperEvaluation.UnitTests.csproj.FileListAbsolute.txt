@@ -17,7 +17,10 @@ C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEval
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.UnitTests\bin\Debug\net9.0\MediatR.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.UnitTests\bin\Debug\net9.0\MediatR.Contracts.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.UnitTests\bin\Debug\net9.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.UnitTests\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.UnitTests\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.UnitTests\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.UnitTests\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.UnitTests\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.UnitTests\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.UnitTests\bin\Debug\net9.0\Microsoft.TestPlatform.CoreUtilities.dll
