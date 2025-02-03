@@ -658,6 +658,9 @@
       "DeveloperEvaluation.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "MediatR": "12.4.1"
+        },
         "compile": {
           "bin/placeholder/DeveloperEvaluation.Domain.dll": {}
         },

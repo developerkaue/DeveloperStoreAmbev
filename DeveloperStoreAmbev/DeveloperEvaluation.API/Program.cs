@@ -6,6 +6,8 @@ using DeveloperEvaluation.Application.Mappings;
 using MediatR;
 using System.Reflection;
 using DeveloperEvaluation.Application.Features.Sales.Commands;
+using DeveloperEvaluation.Application.Features.Sales.Events;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +16,13 @@ var connectionString = builder.Configuration.GetConnectionString("Postgres");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
+// Configuração do MediatR para processar eventos
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(SaleCreatedEventHandler).Assembly));
+
 // Injeção de dependências para o repositório
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 
-// 🔹 Configuração correta do MediatR (REMOVIDA LINHA DUPLICADA)
+// Configuração correta do MediatR 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly(), typeof(CreateSaleCommand).Assembly));
 
 // AutoMapper para mapeamento de DTOs
