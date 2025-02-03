@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeveloperEvaluation.API\DeveloperEvaluation.API.csproj" />
+    <ProjectReference Include="..\DeveloperEvaluation.Application\DeveloperEvaluation.Application.csproj" />
+    <ProjectReference Include="..\DeveloperEvaluation.Domain\DeveloperEvaluation.Domain.csproj" />
+    <ProjectReference Include="..\DeveloperEvaluation.Infrastructure\DeveloperEvaluation.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
