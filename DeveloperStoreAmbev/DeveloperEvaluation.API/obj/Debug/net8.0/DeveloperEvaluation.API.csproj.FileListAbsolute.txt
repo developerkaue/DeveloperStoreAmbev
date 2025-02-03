@@ -149,4 +149,3 @@ C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEval
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\DeveloperEvaluation.API.pdb
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\DeveloperEvaluation.API.genruntimeconfig.cache
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\ref\DeveloperEvaluation.API.dll
-C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
