@@ -1,4 +1,5 @@
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Domain\bin\Debug\net8.0\DeveloperEvaluation.Domain.deps.json
+C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Domain\bin\Debug\net8.0\DeveloperEvaluation.Domain.runtimeconfig.json
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Domain\bin\Debug\net8.0\DeveloperEvaluation.Domain.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Domain\bin\Debug\net8.0\DeveloperEvaluation.Domain.pdb
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Domain\obj\Debug\net8.0\DeveloperEvaluation.Domain.GeneratedMSBuildEditorConfig.editorconfig
@@ -9,4 +10,5 @@ C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEval
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Domain\obj\Debug\net8.0\DeveloperEvaluation.Domain.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Domain\obj\Debug\net8.0\refint\DeveloperEvaluation.Domain.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Domain\obj\Debug\net8.0\DeveloperEvaluation.Domain.pdb
+C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Domain\obj\Debug\net8.0\DeveloperEvaluation.Domain.genruntimeconfig.cache
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Domain\obj\Debug\net8.0\ref\DeveloperEvaluation.Domain.dll

@@ -1,4 +1,5 @@
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Application\bin\Debug\net8.0\DeveloperEvaluation.Application.deps.json
+C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Application\bin\Debug\net8.0\DeveloperEvaluation.Application.runtimeconfig.json
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Application\bin\Debug\net8.0\DeveloperEvaluation.Application.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Application\bin\Debug\net8.0\DeveloperEvaluation.Application.pdb
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Application\bin\Debug\net8.0\DeveloperEvaluation.CrossCutting.dll
@@ -15,4 +16,5 @@ C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEval
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Application\obj\Debug\net8.0\DeveloperEvaluation.Application.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Application\obj\Debug\net8.0\refint\DeveloperEvaluation.Application.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Application\obj\Debug\net8.0\DeveloperEvaluation.Application.pdb
+C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Application\obj\Debug\net8.0\DeveloperEvaluation.Application.genruntimeconfig.cache
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.Application\obj\Debug\net8.0\ref\DeveloperEvaluation.Application.dll
