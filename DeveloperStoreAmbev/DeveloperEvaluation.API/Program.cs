@@ -1,30 +1,42 @@
-using DeveloperEvaluation.Infrastructure.Repositories;
+ï»¿using DeveloperEvaluation.Infrastructure.Repositories;
 using DeveloperEvaluation.Domain.Repositories;
 using DeveloperEvaluation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using DeveloperEvaluation.Application.Mappings;
+using MediatR;
+using System.Reflection;
+using DeveloperEvaluation.Application.Features.Sales.Commands;
+using DeveloperEvaluation.Application.Features.Sales.Events;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração do Banco de Dados PostgreSQL
+// ConfiguraÃ§Ã£o do Banco de Dados PostgreSQL
 var connectionString = builder.Configuration.GetConnectionString("Postgres");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-// Injeção de dependências para o repositório
+// ConfiguraÃ§Ã£o do MediatR para processar eventos
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(SaleCreatedEventHandler).Assembly));
+
+// InjeÃ§Ã£o de dependÃªncias para o repositÃ³rio
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 
-// Configuração do MediatR
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
+// ConfiguraÃ§Ã£o correta do MediatR 
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly(), typeof(CreateSaleCommand).Assembly));
+
+// AutoMapper para mapeamento de DTOs
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Logging.AddConsole();
+
 
 var app = builder.Build();
 
-// Aplicar migrações automaticamente
+// Aplicar migraÃ§Ãµes automaticamente
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
