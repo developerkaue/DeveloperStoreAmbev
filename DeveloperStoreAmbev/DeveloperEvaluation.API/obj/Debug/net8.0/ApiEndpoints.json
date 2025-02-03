@@ -1,0 +1,60 @@
+[
+  {
+    "ContainingType": "DeveloperEvaluation.API.Controllers.SalesController",
+    "Method": "CreateSale",
+    "RelativePath": "api/sales",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "DeveloperEvaluation.Application.Features.Sales.Commands.CreateSaleCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DeveloperEvaluation.API.Controllers.SalesController",
+    "Method": "GetAllSales",
+    "RelativePath": "api/sales",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DeveloperEvaluation.API.Controllers.SalesController",
+    "Method": "GetSaleById",
+    "RelativePath": "api/sales/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DeveloperEvaluation.API.Controllers.SalesController",
+    "Method": "CancelSale",
+    "RelativePath": "api/sales/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
