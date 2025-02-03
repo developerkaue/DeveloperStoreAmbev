@@ -13,7 +13,7 @@ namespace DeveloperEvaluation.Domain.Entities
         public List<SaleItem> Items { get; private set; } = new List<SaleItem>();
         public bool IsCancelled { get; private set; }
 
-        // 🔹 Construtor vazio necessário para o EF Core
+        // Construtor vazio necessário para o EF Core
         private Sale() { }
 
         public Sale(Guid customerId, List<SaleItem> items)
@@ -21,7 +21,7 @@ namespace DeveloperEvaluation.Domain.Entities
             Id = Guid.NewGuid();
             Date = DateTime.UtcNow;
             CustomerId = customerId;
-            Items = items ?? new List<SaleItem>();
+            Items = items ?? throw new ArgumentNullException(nameof(items));
             ApplyDiscounts();
         }
 
@@ -35,6 +35,9 @@ namespace DeveloperEvaluation.Domain.Entities
 
         public void CancelSale()
         {
+            if (IsCancelled)
+                throw new InvalidOperationException("A venda já foi cancelada.");
+
             IsCancelled = true;
         }
     }

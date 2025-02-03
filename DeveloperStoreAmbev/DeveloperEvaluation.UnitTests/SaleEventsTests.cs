@@ -3,10 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using DeveloperEvaluation.Application.DTOs;
 using DeveloperEvaluation.Application.Features.Sales.Commands;
+using DeveloperEvaluation.Application.Features.Sales.Events;
 using DeveloperEvaluation.Domain.Events;
 using DeveloperEvaluation.Domain.Repositories;
 using FluentAssertions;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -37,5 +39,21 @@ namespace DeveloperEvaluation.UnitTests
             // Assert
             mediatorMock.Verify(m => m.Publish(It.IsAny<SaleCreatedEvent>(), It.IsAny<CancellationToken>()), Times.Once);
         }
+
+        [Fact]
+        public async Task SaleModifiedEventHandler_Should_Log_ModifiedSale()
+        {
+            // Arrange
+            var loggerMock = new Mock<ILogger<SaleModifiedEventHandler>>();
+            var handler = new SaleModifiedEventHandler(loggerMock.Object);
+            var saleModifiedEvent = new SaleModifiedEvent(Guid.NewGuid());
+
+            // Act
+            await handler.Handle(saleModifiedEvent, CancellationToken.None);
+
+            // Assert
+            loggerMock.Verify(x => x.LogInformation(It.IsAny<string>(), It.IsAny<object[]>()), Times.Once);
+        }
     }
 }
+
