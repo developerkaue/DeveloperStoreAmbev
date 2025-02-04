@@ -23,12 +23,15 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restaurar Dependencias
+        working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
         run: dotnet restore DeveloperStoreAmbev.sln
 
       - name: Compilar o Projeto
+        working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
         run: dotnet build DeveloperStoreAmbev.sln --no-restore --configuration Release
 
       - name: Executar Testes Unitarios
+        working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
         run: dotnet test DeveloperStoreAmbev.sln --no-build --verbosity normal
 
 
