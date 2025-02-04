@@ -27,7 +27,7 @@ jobs:
 
         - name: 📦 Restaurar Dependencias
           working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
-          run: dotnet restore ./DeveloperStoreAmbev.sln
+          run: dotnet restore DeveloperStoreAmbev.sln
 
         - name: 🛠️ Compilar o Projeto
           working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
