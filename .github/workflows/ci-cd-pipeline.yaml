@@ -76,8 +76,13 @@ jobs:
           sleep 30  # Tempo maior para evitar falha na conexão com banco
           echo "Verificando logs da API..."
           docker logs developer_evaluation_api
+
+      - name: Testando conexão com a API
+        run: |
           echo "Testando conexão com a API..."
-          curl --retry 5 --retry-delay 5 --retry-connrefused -X GET http://localhost:8081/api/sales || exit 1
+          curl --retry 5 --retry-delay 5 --retry-connrefused -X GET http://localhost:8080/api/sales || exit 1
+
+         
 
   deploy:
     needs: docker-build  
