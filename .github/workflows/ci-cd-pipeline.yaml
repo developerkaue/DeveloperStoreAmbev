@@ -14,10 +14,10 @@ jobs:
   build-test:
       runs-on: ubuntu-latest
       steps:
-        - name: 📥 Checkout do Codigo
+        - name: 📥 Checkout do Código
           uses: actions/checkout@v3
 
-        - name: 🗂️ Verificar Estrutura de Diretorios
+        - name: 🗂️ Verificar Estrutura de Diretórios
           run: ls -R
 
         - name: 🔧 Configurar .NET 8.0
@@ -25,32 +25,33 @@ jobs:
           with:
             dotnet-version: 8.0.x
 
-        - name: 📦 Restaurar Dependencias
-          working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
+        - name: 📦 Restaurar Dependências
+          working-directory: DeveloperStoreAmbev
           run: dotnet restore DeveloperStoreAmbev.sln
 
         - name: 🛠️ Compilar o Projeto
-          working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
-          run: dotnet build ./DeveloperStoreAmbev.sln --no-restore --configuration Release
+          working-directory: DeveloperStoreAmbev
+          run: dotnet build DeveloperStoreAmbev.sln --no-restore --configuration Release
 
-        - name: ✅ Executar Testes Unitarios
-          working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
-          run: dotnet test ./DeveloperStoreAmbev.sln --no-build --verbosity normal
+        - name: ✅ Executar Testes Unitários
+          working-directory: DeveloperStoreAmbev
+          run: dotnet test DeveloperStoreAmbev.sln --no-build --verbosity normal
 
   docker-build:
     needs: build-test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do Codigo
+      - name: 📥 Checkout do Código
         uses: actions/checkout@v3
 
-      - name: Configurar Docker Buildx
+      - name: 🐳 Configurar Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Construir Imagem Docker
+      - name: 🏗️ Construir Imagem Docker
+        working-directory: DeveloperStoreAmbev
         run: docker build -t developer-evaluation-api .
 
-      - name: Criar Container e Testar API
+      - name: 🚀 Criar Container e Testar API
         run: |
           docker run -d -p 8080:8080 --name developer-evaluation-api developer-evaluation-api
           sleep 10 # Esperar a API inicializar
@@ -60,5 +61,5 @@ jobs:
     needs: docker-build
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy Placeholder (Adicione aqui sua estrategia de deploy)
-        run: echo "Deploy nao implementado. Configure para AWS/Azure/Docker Hub/etc."
+      - name: 🚀 Deploy Placeholder (Adicione aqui sua estratégia de deploy)
+        run: echo "Deploy não implementado. Configure para AWS/Azure/Docker Hub/etc."
