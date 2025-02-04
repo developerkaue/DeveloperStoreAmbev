@@ -1,7 +1,10 @@
 ﻿# 🔹 Usando imagem oficial do .NET 8.0
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-ENV ASPNETCORE_URLS="http://+:8080"  # Garante que a API escute em todas as interfaces
+
+# Configuração para que a API escute em todas as interfaces na porta 8080
+ENV ASPNETCORE_URLS "http://+:8080"
+
 EXPOSE 8080
 
 # 🔹 SDK para build
