@@ -58,6 +58,14 @@ jobs:
             echo "Verificando se a API está rodando..."
             docker ps  # Mostrar os containers rodando
             curl --retry 5 --retry-delay 5 --retry-connrefused -X GET http://localhost:8080/api/sales || exit 1
+            
+      - name: 📜 Verificar Logs do Container
+        run: docker logs developer-evaluation-api
+
+      - name: 🔗 Iniciar Dependências com Docker Compose
+        run: docker-compose up -d
+
+
   deploy:
     needs: docker-build
     runs-on: ubuntu-latest
