@@ -1,39 +1,55 @@
-# DeveloperStoreAmbev
+# Developer Evaluation API (AMBEV)
+- Uma API completa com arquitetura SOLID, DDD e integra√ß√£o cont√≠nua via Docker e GitHub Actions.
+- Rodando em .NET 8 e utilizando PostgreSQL, MongoDB e Redis!
 
-Este documento detalha a implementaÁ„o do projeto de Developer Evaluation, seguindo Clean Architecture, DDD (Domain-Driven Design), SOLID, e padrıes modernos de desenvolvimento.
+# Sobre o Projeto
+- Este projeto √© uma API para avalia√ß√£o de desenvolvedores, seguindo as melhores pr√°ticas de desenvolvimento moderno, incluindo:
 
-O projeto ser· uma API REST para gerenciar vendas, incluindo:
+* Arquitetura em camadas (Clean Architecture)
+* Domain-Driven Design (DDD)
+* Princ√≠pios SOLID
+* Testes Unit√°rios e de Integra√ß√£o
+* Banco de Dados Relacional (PostgreSQL) e NoSQL (MongoDB)
+* Mensageria e eventos de dom√≠nio
+* CI/CD com GitHub Actions e Docker
 
-Cadastro e gerenciamento de vendas e itens de venda
 
-AplicaÁ„o de regras de desconto
+# Tecnologias Utilizadas
+- Back-End:
+* NET 8.0
+* Entity Framework Core + PostgreSQL
+* MongoDB para armazenamento NoSQL
+* Redis para cache
 
-PersistÍncia em PostgreSQL
+- DevOps & Deploy:
+* Docker & Docker Compose
+* GitHub Actions para CI/CD
 
-Suporte a MongoDB para leitura
+# Como Rodar o Projeto (Passo a Passo)
 
-Cache com Redis
+- Pr√©-requisitos:
 
-Testes unit·rios e de integraÁ„o
+* Docker instalado ([Baixe aqui](https://www.docker.com))
+* .NET SDK 8.0+ ([Baixe aqui](https://dotnet.microsoft.com/pt-br/download/dotnet/8.0))
+* Git ([Baixe aqui](https://git-scm.com/downloads))
 
-PublicaÁ„o de eventos de domÌnio
+- Clone o reposit√≥rio
+* Abra o terminal e execute:
 
-Tecnologias Utilizadas
+    git clone https://github.com/seu-usuario/DeveloperStoreAmbev.git
+    cd DeveloperStoreAmbev
 
-C# 12 e .NET 8.0
+- Configure as depend√™ncias
+* No terminal, execute:
 
-Entity Framework Core (PostgreSQL)
+    dotnet restore
 
-MongoDB (NoSQL)
+-  Configure as vari√°veis de ambiente:
+* Antes de rodar, certifique-se de que as configura√ß√µes do banco de dados est√£o corretas.
+As conex√µes com PostgreSQL e MongoDB est√£o no appsettings.json:
 
-Redis (Cache)
+    "ConnectionStrings": {
+        "Postgres": "Host=localhost;Port=5432;Database=developer_evaluation;Username=developer;Password=devpass;"
+    }
+Se precisar alterar as credenciais, edite o arquivo docker-compose.yml.
 
-MediatR (CQRS, Event-Driven)
-
-AutoMapper (Mapeamento de DTOs)
-
-xUnit e Moq (Testes unit·rios e mocks)
-
-Docker e Docker Compose
-
-FluentValidation (ValidaÁıes)
