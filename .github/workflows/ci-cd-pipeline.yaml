@@ -37,8 +37,8 @@ jobs:
           run: dotnet build DeveloperStoreAmbev.sln --no-restore --configuration Release
 
         - name: ✅ Executar Testes Unitarios e de Integração
-          working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
-          run: dotnet test ./DeveloperStoreAmbev.sln --no-build --no-restore --verbosity normal --results-directory TestResults
+          working-directory: DeveloperStoreAmbev
+          run: dotnet test DeveloperStoreAmbev.sln --no-build --no-restore --verbosity normal --results-directory TestResults
 
 
   docker-build:
