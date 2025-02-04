@@ -54,7 +54,7 @@ jobs:
       - name: Iniciar Dependências com Docker Compose
         working-directory: DeveloperStoreAmbev
         run: |
-          docker-compose -f docker-compose.yml up -d
+          docker-compose up -d
           echo "Aguardando PostgreSQL e MongoDB inicializarem..."
           sleep 15 
 
@@ -62,22 +62,20 @@ jobs:
         working-directory: DeveloperStoreAmbev
         run: docker build -t developer-evaluation-api .
 
-      - name: Remover Containers Antigos
+      - name: Remover Containers Antigos (Se Existirem)
         run: |
           docker stop developer-evaluation-api || true
           docker rm developer-evaluation-api || true
 
-      - name: Verificar portas usadas antes de subir API
-        run: netstat -tulnp | grep 8080 || echo "Porta 8080 livre"
-
       - name: Criar Container e Testar API
+        working-directory: DeveloperStoreAmbev
         run: |
-          echo "Subindo a API..."
-          docker run -d -p 8081:8080 --name developer-evaluation-api developer-evaluation-api
+          echo "Subindo os serviços com Docker Compose..."
+          docker-compose up -d
           echo "Aguardando a API iniciar..."
-          sleep 20 
+          sleep 30  # Tempo maior para evitar falha na conexão com banco
           echo "Verificando logs da API..."
-          docker logs developer-evaluation-api 
+          docker logs developer_evaluation_api
           echo "Testando conexão com a API..."
           curl --retry 5 --retry-delay 5 --retry-connrefused -X GET http://localhost:8081/api/sales || exit 1
 
