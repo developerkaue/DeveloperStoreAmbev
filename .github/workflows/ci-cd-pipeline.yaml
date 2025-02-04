@@ -62,16 +62,24 @@ jobs:
         working-directory: DeveloperStoreAmbev
         run: docker build -t developer-evaluation-api .
 
+      - name: Remover Containers Antigos
+        run: |
+          docker stop developer-evaluation-api || true
+          docker rm developer-evaluation-api || true
+
+      - name: Verificar portas usadas antes de subir API
+        run: netstat -tulnp | grep 8080 || echo "Porta 8080 livre"
+
       - name: Criar Container e Testar API
         run: |
           echo "Subindo a API..."
-          docker run -d -p 8080:8080 --name developer-evaluation-api developer-evaluation-api
+          docker run -d -p 8081:8080 --name developer-evaluation-api developer-evaluation-api
           echo "Aguardando a API iniciar..."
           sleep 20 
           echo "Verificando logs da API..."
           docker logs developer-evaluation-api 
           echo "Testando conexão com a API..."
-          curl --retry 5 --retry-delay 5 --retry-connrefused -X GET http://localhost:8080/api/sales || exit 1
+          curl --retry 5 --retry-delay 5 --retry-connrefused -X GET http://localhost:8081/api/sales || exit 1
 
   deploy:
     needs: docker-build  
