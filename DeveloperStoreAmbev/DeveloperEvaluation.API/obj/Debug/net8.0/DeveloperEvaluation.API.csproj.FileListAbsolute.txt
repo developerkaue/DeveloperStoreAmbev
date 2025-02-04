@@ -143,10 +143,10 @@ C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEval
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.DeveloperEvaluation.API.props
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.DeveloperEvaluation.API.props
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\Develope.E7D5C839.Up2Date
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\DeveloperEvaluation.API.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\refint\DeveloperEvaluation.API.dll
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\DeveloperEvaluation.API.pdb
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\DeveloperEvaluation.API.genruntimeconfig.cache
 C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\ref\DeveloperEvaluation.API.dll
+C:\Users\kwgd\source\repos\DeveloperStoreAmbev\DeveloperStoreAmbev\DeveloperEvaluation.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
