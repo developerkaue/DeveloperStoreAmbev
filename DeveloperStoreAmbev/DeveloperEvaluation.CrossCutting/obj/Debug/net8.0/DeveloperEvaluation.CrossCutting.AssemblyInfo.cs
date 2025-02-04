@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DeveloperEvaluation.CrossCutting")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8cd97505ea2aa5ec39ebfb25faf34ea93bea5ef2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b4e6e971cb50d9175e3d16465c45e8c0f518292")]
 [assembly: System.Reflection.AssemblyProductAttribute("DeveloperEvaluation.CrossCutting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DeveloperEvaluation.CrossCutting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
