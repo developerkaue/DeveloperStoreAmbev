@@ -1,69 +1,68 @@
-version: "3.8"
+name: CI/CD Pipeline - Developer Evaluation
 
-services:
-  # 🔹 Banco de Dados PostgreSQL
-  postgres:
-    image: postgres:15
-    container_name: developer_evaluation_db
-    restart: always
-    environment:
-      POSTGRES_DB: developer_evaluation
-      POSTGRES_USER: developer
-      POSTGRES_PASSWORD: devpass
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U developer -d developer_evaluation"]
-      interval: 10s
-      retries: 5
-      start_period: 5s
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
 
-  # 🔹 Banco de Dados NoSQL MongoDB
-  mongodb:
-    image: mongo:6.0
-    container_name: developer_evaluation_nosql
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: developer
-      MONGO_INITDB_ROOT_PASSWORD: devpass
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodata:/data/db
+jobs:
 
-  # 🔹 Redis para cache
-  redis:
-    image: redis:7.0-alpine
-    container_name: developer_evaluation_cache
-    restart: always
-    command: redis-server --requirepass devpass
-    ports:
-      - "6379:6379"
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout do Código
+        uses: actions/checkout@v3
 
-  # 🔹 Nossa aplicação .NET API
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: developer_evaluation_api
-    restart: always
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__Postgres=Host=postgres;Port=5432;Database=developer_evaluation;Username=developer;Password=devpass;
-    ports:
-      - "8080:8080"
-    depends_on:
-      postgres:
-        condition: service_healthy
-      mongodb:
-        condition: service_started
-      redis:
-        condition: service_started
-    command: >
-      sh -c "dotnet ef database update && dotnet DeveloperEvaluation.API.dll"
+      - name: 🗂️ Verificar Estrutura de Diretórios
+        run: ls -R
 
-volumes:
-  pgdata:
-  mongodata:
+      - name: 🔧 Configurar .NET 8.0 e .NET 9.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      - name: 📦 Restaurar Dependências
+        working-directory: DeveloperStoreAmbev
+        run: dotnet restore DeveloperStoreAmbev.sln
+
+      - name: 🛠️ Compilar o Projeto
+        working-directory: DeveloperStoreAmbev
+        run: dotnet build DeveloperStoreAmbev.sln --no-restore --configuration Release
+
+  docker_build:  # <- Certifique-se de que o nome do job não contém hífen "-"
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout do Código
+        uses: actions/checkout@v3
+
+      - name: 🐳 Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: 🏗️ Construir Imagem Docker
+        working-directory: DeveloperStoreAmbev
+        run: docker build -t developer-evaluation-api .
+
+      - name: 🚀 Criar Container e Testar API
+        run: |
+            docker-compose up -d
+            echo "Aguardando a API iniciar..."
+            sleep 30  # Aumentar tempo de espera para evitar problemas de conexão
+            echo "Verificando se a API está rodando..."
+            docker ps  # Mostrar os containers rodando
+            curl --retry 5 --retry-delay 5 --retry-connrefused -X GET http://localhost:8080/api/sales || exit 1
+            docker logs developer-evaluation-api
+
+  deploy:
+    needs: docker_build  # <- Ajustado para corresponder ao nome do job anterior
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Deploy Placeholder (Adicione aqui sua estratégia de deploy)
+        run: echo "Deploy não implementado. Configure para AWS/Azure/Docker Hub/etc."
