@@ -35,6 +35,9 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+# 🔹 Rodar migrações antes de iniciar a API
+CMD ["dotnet", "DeveloperEvaluation.API.dll", "&&", "dotnet", "ef", "database", "update"]
+
 # 🔹 Adiciona healthcheck para verificar se a API está rodando
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s \
   CMD curl -f http://localhost:8080/health || exit 1
