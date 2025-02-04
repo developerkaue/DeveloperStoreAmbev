@@ -11,28 +11,31 @@ on:
       - develop
 
 jobs:
-  build-test:
+   build-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do Codigo
+      - name: 📥 Checkout do Codigo
         uses: actions/checkout@v3
 
-      - name: Configurar .NET 8.0
+      - name: 🗂️ Verificar Estrutura de Diretorios
+        run: ls -R
+
+      - name: 🔧 Configurar .NET 8.0
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 8.0.x
 
-      - name: Restaurar Dependencias
+      - name: 📦 Restaurar Dependencias
         working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
-        run: dotnet restore DeveloperStoreAmbev.sln
+        run: dotnet restore ./DeveloperStoreAmbev.sln
 
-      - name: Compilar o Projeto
+      - name: 🛠️ Compilar o Projeto
         working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
-        run: dotnet build DeveloperStoreAmbev.sln --no-restore --configuration Release
+        run: dotnet build ./DeveloperStoreAmbev.sln --no-restore --configuration Release
 
-      - name: Executar Testes Unitarios
+      - name: ✅ Executar Testes Unitarios
         working-directory: DeveloperStoreAmbev/DeveloperStoreAmbev
-        run: dotnet test DeveloperStoreAmbev.sln --no-build --verbosity normal
+        run: dotnet test ./DeveloperStoreAmbev.sln --no-build --verbosity normal
 
 
   docker-build:
