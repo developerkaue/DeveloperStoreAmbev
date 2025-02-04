@@ -1,42 +1,69 @@
-name: CI/CD Pipeline - Developer Evaluation
-on:
-  push:
-    branches:
-      - main
-      - develop
-  pull_request:
-    branches:
-      - main
-      - develop
-jobs:
-  build-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout do Código
-        uses: actions/checkout@v3
-      - name: Verificar Estrutura de Diretórios
-        run: ls -R
-      - name: Configurar .NET 8.0 e .NET 9.0
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: |
-            8.0.x
-            9.0.x
-      - name: Restaurar Dependências
-        working-directory: DeveloperStoreAmbev
-        run: dotnet restore DeveloperStoreAmbev.sln
-      - name: Compilar o Projeto
-        working-directory: DeveloperStoreAmbev
-        run: >-
-          dotnet build DeveloperStoreAmbev.sln --no-restore --configuration
-          Release
+version: "3.8"
 
-  
-  deploy:
-    needs: docker-build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy Placeholder (Adicione aqui sua estratégia de deploy)
-        run: >-
-          echo "Deploy não implementado. Configure para AWS/Azure/Docker
-          Hub/etc."
+services:
+  # 🔹 Banco de Dados PostgreSQL
+  postgres:
+    image: postgres:15
+    container_name: developer_evaluation_db
+    restart: always
+    environment:
+      POSTGRES_DB: developer_evaluation
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: devpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U developer -d developer_evaluation"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+
+  # 🔹 Banco de Dados NoSQL MongoDB
+  mongodb:
+    image: mongo:6.0
+    container_name: developer_evaluation_nosql
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: developer
+      MONGO_INITDB_ROOT_PASSWORD: devpass
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+  # 🔹 Redis para cache
+  redis:
+    image: redis:7.0-alpine
+    container_name: developer_evaluation_cache
+    restart: always
+    command: redis-server --requirepass devpass
+    ports:
+      - "6379:6379"
+
+  # 🔹 Nossa aplicação .NET API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: developer_evaluation_api
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Postgres=Host=postgres;Port=5432;Database=developer_evaluation;Username=developer;Password=devpass;
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_started
+      redis:
+        condition: service_started
+    command: >
+      sh -c "dotnet ef database update && dotnet DeveloperEvaluation.API.dll"
+
+volumes:
+  pgdata:
+  mongodata:
