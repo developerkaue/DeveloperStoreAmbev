@@ -36,7 +36,7 @@ jobs:
         working-directory: DeveloperStoreAmbev
         run: dotnet build DeveloperStoreAmbev.sln --no-restore --configuration Release
 
-  docker_build:  # <- Certifique-se de que o nome do job não contém hífen "-"
+  docker-build:  
     needs: build-test
     runs-on: ubuntu-latest
     steps:
@@ -61,7 +61,7 @@ jobs:
             docker logs developer-evaluation-api
 
   deploy:
-    needs: docker_build  # <- Ajustado para corresponder ao nome do job anterior
+    needs: docker-build  
     runs-on: ubuntu-latest
     steps:
       - name: 🚀 Deploy Placeholder (Adicione aqui sua estratégia de deploy)
