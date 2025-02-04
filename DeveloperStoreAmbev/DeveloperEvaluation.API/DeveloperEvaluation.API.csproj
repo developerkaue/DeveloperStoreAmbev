@@ -7,7 +7,11 @@
     <UserSecretsId>b1cb7b11-e63e-4424-bd94-a3d2a4ec770b</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
-
+	
+	<ItemGroup>
+		<ProjectReference Include="..\DeveloperEvaluation.Application\DeveloperEvaluation.Application.csproj" />
+	</ItemGroup>
+	
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.1">
       <PrivateAssets>all</PrivateAssets>

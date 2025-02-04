@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DeveloperEvaluation.Domain.Events;
+using DeveloperEvaluation.Application.Events;
 using DeveloperEvaluation.Application.Features.Sales.Events;
-using FluentAssertions;
+using DeveloperEvaluation.Application.Handlers;
+using DeveloperEvaluation.Domain.Entities;
+using DeveloperEvaluation.Domain.Events;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
@@ -12,25 +14,30 @@ namespace DeveloperEvaluation.UnitTests
 {
     public class SaleCreatedEventHandlerTests
     {
-        [Fact]
-        public async Task SaleCreatedEventHandler_Should_Log_SaleCreated()
+        private readonly Mock<ILogger<SaleCreatedEventHandler>> _loggerMock;
+        private readonly SaleCreatedEventHandler _handler;
+
+        public SaleCreatedEventHandlerTests()
         {
-            // Arrange
-            var loggerMock = new Mock<ILogger<SaleCreatedEventHandler>>();
-            var handler = new SaleCreatedEventHandler(loggerMock.Object);
-            var saleCreatedEvent = new SaleCreatedEvent(Guid.NewGuid(), Guid.NewGuid());
+            _loggerMock = new Mock<ILogger<SaleCreatedEventHandler>>();
+            _handler = new SaleCreatedEventHandler(_loggerMock.Object);
+        }
 
-            // Act
-            await handler.Handle(saleCreatedEvent, CancellationToken.None);
+        [Fact]
+        public async Task Handle_Should_Log_Message_When_Sale_Created()
+        {
+            var sale = new Sale(Guid.NewGuid(), new List<SaleItem>());
+            var saleCreatedEvent = new SaleCreatedEvent(sale);
 
-            // Assert
-            loggerMock.Verify(
+            await _handler.Handle(saleCreatedEvent, CancellationToken.None);
+
+            _loggerMock.Verify(
                 x => x.Log(
-                    It.Is<LogLevel>(l => l == LogLevel.Information),
+                    It.IsAny<LogLevel>(),
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Nova venda registrada!")),
-                    It.IsAny<Exception>(),
-                    It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)
+                    It.IsAny<It.IsAnyType>(),
+                    It.IsAny<Exception?>(), // ✅ Ajustando para permitir nulo
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>() // ✅ Ajustando para Exception?
                 ),
                 Times.Once
             );

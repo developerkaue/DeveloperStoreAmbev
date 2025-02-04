@@ -1,0 +1,54 @@
+# Excluir arquivos de compilação
+bin/
+obj/
+out/
+TestResults/
+*.exe
+*.dll
+*.pdb
+*.log
+*.cache
+*.tmp
+
+# Excluir configurações do Visual Studio
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignorar pacotes do NuGet restaurados
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+.nuget/
+
+# Configurações de ambiente e logs
+.env
+*.log
+logs/
+appsettings.Development.json
+appsettings.Local.json
+
+# Ignorar arquivos do Rider e Resharper
+*.DotSettings.user
+.idea/
+*.sln.iml
+
+# Excluir arquivos gerados pelo Docker
+docker-compose.override.yml
+*.dockerfile
+**/Dockerfile
+
+# Excluir arquivos gerados pelo Entity Framework Migrations
+Migrations/
+*.db
+
+# Excluir arquivos do test host
+testhost.*
+test-results/
+.coverage/
+*.trx
+*.csproj.user

@@ -7,7 +7,7 @@ using DeveloperEvaluation.Application.DTOs;
 using DeveloperEvaluation.Domain.Entities;
 using DeveloperEvaluation.Domain.Repositories;
 using MediatR;
-using DeveloperEvaluation.Domain.Events;
+using DeveloperEvaluation.Application.Events;
 
 namespace DeveloperEvaluation.Application.Features.Sales.Commands
 {
@@ -33,8 +33,9 @@ namespace DeveloperEvaluation.Application.Features.Sales.Commands
             // Persiste a venda no banco de dados
             await _saleRepository.AddAsync(sale);
 
-            // 🚀 Dispara o evento de criação da venda
-            await _mediator.Publish(new SaleCreatedEvent(sale.Id, sale.CustomerId), cancellationToken);
+            // Dispara o evento de criação da venda
+            await _mediator.Publish(new SaleCreatedEvent(sale)); 
+
 
             return sale.Id;
         }
