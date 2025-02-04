@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   # 🔹 Banco de Dados PostgreSQL
   postgres:
@@ -52,7 +54,6 @@ services:
       - ConnectionStrings__Postgres=Host=postgres;Port=5432;Database=developer_evaluation;Username=developer;Password=devpass;
     ports:
       - "8080:8080"
-      - "8081:8081"
     depends_on:
       postgres:
         condition: service_healthy
@@ -60,6 +61,8 @@ services:
         condition: service_started
       redis:
         condition: service_started
+    command: >
+      sh -c "dotnet ef database update && dotnet DeveloperEvaluation.API.dll"
 
 volumes:
   pgdata:
