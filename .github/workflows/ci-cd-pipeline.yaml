@@ -11,17 +11,16 @@ on:
       - develop
 
 jobs:
-
   build-test:
     runs-on: ubuntu-latest
     steps:
-      - name:  Checkout do Código
+      - name: Checkout do Código
         uses: actions/checkout@v3
 
       - name: Verificar Estrutura de Diretórios
         run: ls -R
 
-      - name:  Configurar .NET 8.0 e .NET 9.0
+      - name: Configurar .NET 8.0 e .NET 9.0
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
@@ -32,7 +31,7 @@ jobs:
         working-directory: DeveloperStoreAmbev
         run: dotnet restore DeveloperStoreAmbev.sln
 
-      - name:  Compilar o Projeto
+      - name: Compilar o Projeto
         working-directory: DeveloperStoreAmbev
         run: dotnet build DeveloperStoreAmbev.sln --no-restore --configuration Release
 
@@ -46,22 +45,20 @@ jobs:
       - name: Configurar Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: 
+      - name: Instalar Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version 
 
-
-
       - name: Iniciar Dependências com Docker Compose
-       working-directory: DeveloperStoreAmbev
+        working-directory: DeveloperStoreAmbev
         run: |
-          docker-compose up -d
+          docker-compose -f docker-compose.yml up -d
           echo "Aguardando PostgreSQL e MongoDB inicializarem..."
           sleep 15 
 
-      - name:  Construir Imagem Docker
+      - name: Construir Imagem Docker
         working-directory: DeveloperStoreAmbev
         run: docker build -t developer-evaluation-api .
 
