@@ -55,6 +55,7 @@ jobs:
 
 
       - name: Iniciar Dependências com Docker Compose
+       working-directory: DeveloperStoreAmbev
         run: |
           docker-compose up -d
           echo "Aguardando PostgreSQL e MongoDB inicializarem..."
