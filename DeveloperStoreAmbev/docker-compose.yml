@@ -30,43 +30,8 @@ jobs:
         run: >-
           dotnet build DeveloperStoreAmbev.sln --no-restore --configuration
           Release
-  docker-build:
-    needs: build_test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout do Código
-        uses: actions/checkout@v3
-      - name: Configurar Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      - name: Iniciar Dependências com Docker Compose
-        run: |
-          docker-compose up -d
-          echo "Aguardando PostgreSQL e MongoDB inicializarem..."
-          sleep 15  # Tempo para serviços estarem disponíveis
-      - name: Construir Imagem Docker
-        working-directory: DeveloperStoreAmbev
-        run: docker build -t developer-evaluation-api .
-      - name: Criar Container e Testar API
-        run: >
-          echo "Subindo a API..."
 
-          docker run -d -p 8080:8080 --name developer-evaluation-api
-          developer-evaluation-api
-
-          echo "Aguardando a API iniciar..."
-
-          sleep 20 
-
-          echo "Verificando se a API está rodando..."
-
-          docker ps 
-
-          docker logs developer-evaluation-api 
-
-          echo "Testando conexão com a API..."
-
-          curl --retry 5 --retry-delay 5 --retry-connrefused -X GET
-          http://localhost:8080/api/sales || exit 1
+  
   deploy:
     needs: docker-build
     runs-on: ubuntu-latest
