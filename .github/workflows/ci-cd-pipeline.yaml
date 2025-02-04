@@ -11,6 +11,7 @@ on:
       - develop
 
 jobs:
+
   build-test:
       runs-on: ubuntu-latest
       steps:
@@ -20,10 +21,10 @@ jobs:
         - name: 🗂️ Verificar Estrutura de Diretórios
           run: ls -R
 
-        - name: 🔧 Configurar .NET 8.0
+        - name: 🔧 Configurar .NET 9.0
           uses: actions/setup-dotnet@v3
           with:
-            dotnet-version: 8.0.x
+            dotnet-version: 9.0.xx
 
         - name: 📦 Restaurar Dependências
           working-directory: DeveloperStoreAmbev
