@@ -1,5 +1,4 @@
 name: CI/CD Pipeline - Developer Evaluation
-
 on:
   push:
     branches:
@@ -9,68 +8,70 @@ on:
     branches:
       - main
       - develop
-
 jobs:
-
-  build_test:  # 🔹 Nome atualizado para evitar erro de parsing no GitHub Actions
+  build-test:
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Checkout do Código
+      - name: Checkout do Código
         uses: actions/checkout@v3
-
-      - name: 🗂️ Verificar Estrutura de Diretórios
+      - name: Verificar Estrutura de Diretórios
         run: ls -R
-
-      - name: 🔧 Configurar .NET 8.0 e .NET 9.0
+      - name: Configurar .NET 8.0 e .NET 9.0
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
             8.0.x
             9.0.x
-
-      - name: 📦 Restaurar Dependências
+      - name: Restaurar Dependências
         working-directory: DeveloperStoreAmbev
         run: dotnet restore DeveloperStoreAmbev.sln
-
-      - name: 🛠️ Compilar o Projeto
+      - name: Compilar o Projeto
         working-directory: DeveloperStoreAmbev
-        run: dotnet build DeveloperStoreAmbev.sln --no-restore --configuration Release
-
-  docker-build:  
-    needs: build_test  
+        run: >-
+          dotnet build DeveloperStoreAmbev.sln --no-restore --configuration
+          Release
+  docker-build:
+    needs: build_test
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Checkout do Código
+      - name: Checkout do Código
         uses: actions/checkout@v3
-
-      - name: 🐳 Configurar Docker Buildx
+      - name: Configurar Docker Buildx
         uses: docker/setup-buildx-action@v2
-
-      - name: 🔗 Iniciar Dependências com Docker Compose
+      - name: Iniciar Dependências com Docker Compose
         run: |
           docker-compose up -d
           echo "Aguardando PostgreSQL e MongoDB inicializarem..."
           sleep 15  # Tempo para serviços estarem disponíveis
-
-      - name: 🏗️ Construir Imagem Docker
+      - name: Construir Imagem Docker
         working-directory: DeveloperStoreAmbev
         run: docker build -t developer-evaluation-api .
+      - name: Criar Container e Testar API
+        run: >
+          echo "Subindo a API..."
 
-      - name: 🚀 Criar Container e Testar API
-        run: |
-            echo "Subindo a API..."
-            docker run -d -p 8080:8080 --name developer-evaluation-api developer-evaluation-api
-            echo "Aguardando a API iniciar..."
-            sleep 20  # 🔹 Aumentar o tempo de espera para garantir que a API suba corretamente
-            echo "Verificando se a API está rodando..."
-            docker ps  # 🔹 Mostrar os containers rodando
-            docker logs developer-evaluation-api  # 🔹 Mostrar logs para diagnóstico
-            echo "Testando conexão com a API..."
-            curl --retry 5 --retry-delay 5 --retry-connrefused -X GET http://localhost:8080/api/sales || exit 1
+          docker run -d -p 8080:8080 --name developer-evaluation-api
+          developer-evaluation-api
 
+          echo "Aguardando a API iniciar..."
+
+          sleep 20 
+
+          echo "Verificando se a API está rodando..."
+
+          docker ps 
+
+          docker logs developer-evaluation-api 
+
+          echo "Testando conexão com a API..."
+
+          curl --retry 5 --retry-delay 5 --retry-connrefused -X GET
+          http://localhost:8080/api/sales || exit 1
   deploy:
-    needs: docker-build  # 🔹 Nome atualizado para evitar erro de referência
+    needs: docker-build
     runs-on: ubuntu-latest
     steps:
-      - name: 🚀 Deploy Placeholder (Adicione aqui sua estratégia de deploy)
-        run: echo "Deploy não implementado. Configure para AWS/Azure/Docker Hub/etc."
+      - name: Deploy Placeholder (Adicione aqui sua estratégia de deploy)
+        run: >-
+          echo "Deploy não implementado. Configure para AWS/Azure/Docker
+          Hub/etc."
