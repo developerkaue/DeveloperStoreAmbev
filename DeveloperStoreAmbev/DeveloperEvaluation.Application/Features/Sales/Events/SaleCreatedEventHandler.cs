@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using DeveloperEvaluation.Domain.Events;
+using DeveloperEvaluation.Application.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace DeveloperEvaluation.Application.Features.Sales.Events
+namespace DeveloperEvaluation.Application.Handlers
 {
     public class SaleCreatedEventHandler : INotificationHandler<SaleCreatedEvent>
     {
@@ -18,9 +17,7 @@ namespace DeveloperEvaluation.Application.Features.Sales.Events
 
         public Task Handle(SaleCreatedEvent notification, CancellationToken cancellationToken)
         {
-            Console.WriteLine($"⚡ [DEBUG] Evento disparado: Nova venda criada - ID: {notification.SaleId}");
-            _logger.LogInformation($"🚀 Nova venda registrada! ID: {notification.SaleId} | Cliente: {notification.CustomerId}");
-
+            _logger.LogInformation($"Nova venda registrada! ID: {notification.Sale.Id}");
             return Task.CompletedTask;
         }
     }

@@ -9,35 +9,32 @@ namespace DeveloperEvaluation.Domain.Entities
         public Guid Id { get; private set; }
         public DateTime Date { get; private set; }
         public Guid CustomerId { get; private set; }
-        public decimal TotalAmount => Items.Sum(i => i.Total);
-        public List<SaleItem> Items { get; private set; } = new List<SaleItem>();
+        public List<SaleItem> Items { get; private set; }
         public bool IsCancelled { get; private set; }
 
-        // Construtor vazio necessário para o EF Core
-        private Sale() { }
+        
+        public decimal TotalAmount => Items.Sum(item => item.Total);
 
         public Sale(Guid customerId, List<SaleItem> items)
         {
             Id = Guid.NewGuid();
             Date = DateTime.UtcNow;
             CustomerId = customerId;
-            Items = items ?? throw new ArgumentNullException(nameof(items));
-            ApplyDiscounts();
+            Items = items ?? new List<SaleItem>(); // ✅ Garante que não seja nulo
+            IsCancelled = false;
         }
 
-        private void ApplyDiscounts()
-        {
-            foreach (var item in Items)
-            {
-                item.ApplyDiscount();
-            }
-        }
-
-        public void CancelSale()
+        public void UpdateItems(List<SaleItem> updatedItems)
         {
             if (IsCancelled)
-                throw new InvalidOperationException("A venda já foi cancelada.");
+                throw new InvalidOperationException("Não é possível modificar uma venda cancelada.");
+            Items = updatedItems;
+        }
 
+        public void Cancel()
+        {
+            if (IsCancelled)
+                throw new InvalidOperationException("A venda já está cancelada.");
             IsCancelled = true;
         }
     }

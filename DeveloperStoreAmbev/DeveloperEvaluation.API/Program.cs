@@ -7,6 +7,7 @@ using MediatR;
 using System.Reflection;
 using DeveloperEvaluation.Application.Features.Sales.Commands;
 using DeveloperEvaluation.Application.Features.Sales.Events;
+using DeveloperEvaluation.Application.Handlers;
 
 
 var builder = WebApplication.CreateBuilder(args);

@@ -54,7 +54,7 @@ namespace DeveloperEvaluation.Infrastructure.Repositories
             var sale = await _context.Sales.FindAsync(saleId);
             if (sale != null)
             {
-                sale.CancelSale();
+                sale.Cancel();
                 await _context.SaveChangesAsync();
 
                 await _mediator.Publish(new SaleCancelledEvent(sale.Id));

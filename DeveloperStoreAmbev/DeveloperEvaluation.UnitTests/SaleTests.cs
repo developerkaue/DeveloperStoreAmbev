@@ -73,7 +73,7 @@ namespace DeveloperEvaluation.UnitTests
             var sale = new Sale(Guid.NewGuid(), new List<SaleItem>());
 
             // Act
-            sale.CancelSale();
+            sale.Cancel();
 
             // Assert
             sale.IsCancelled.Should().BeTrue();
