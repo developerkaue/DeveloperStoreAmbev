@@ -54,15 +54,15 @@ jobs:
         run: |
             docker run -d -p 8080:8080 --name developer-evaluation-api developer-evaluation-api
             echo "Aguardando a API iniciar..."
-            sleep 30  # Aumentar o tempo de espera
+            sleep 60  # Aumentar tempo de espera para evitar timeout
             echo "Verificando se a API está rodando..."
-            docker ps  # Mostrar os containers rodando
-            curl --retry 5 --retry-delay 5 --retry-connrefused -X GET http://localhost:8080/api/sales || exit 1
-            docker logs developer-evaluation-api
+            docker ps  # Mostrar os containers ativos
+            echo "Verificando logs do container..."
+            docker logs developer-evaluation-api  # Ver logs da API
 
-      - name: 🔗 Iniciar Dependências com Docker Compose
-        run: docker-compose up -d
-
+            # Teste de conexão com retry
+            echo "Testando conexão com a API..."
+            curl --retry 10 --retry-delay 5 --retry-connrefused -X GET http://localhost:8080/api/sales || exit 1
 
   deploy:
     needs: docker-build

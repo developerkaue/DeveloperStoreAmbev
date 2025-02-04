@@ -1,24 +1,26 @@
 ﻿# 🔹 Usando imagem oficial do .NET 8.0
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-
+ENV ASPNETCORE_URLS="http://+:8080"  # Garante que a API escute em todas as interfaces
+EXPOSE 8080
 
 # 🔹 SDK para build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # 🔹 Copiar arquivos da solução
-COPY ["DeveloperEvaluation.API/DeveloperEvaluation.API.csproj", "DeveloperEvaluation.API/"]
-COPY ["DeveloperEvaluation.Application/DeveloperEvaluation.Application.csproj", "DeveloperEvaluation.Application/"]
-COPY ["DeveloperEvaluation.Domain/DeveloperEvaluation.Domain.csproj", "DeveloperEvaluation.Domain/"]
-COPY ["DeveloperEvaluation.Infrastructure/DeveloperEvaluation.Infrastructure.csproj", "DeveloperEvaluation.Infrastructure/"]
+COPY *.sln .
+COPY DeveloperEvaluation.API/*.csproj DeveloperEvaluation.API/
+COPY DeveloperEvaluation.Application/*.csproj DeveloperEvaluation.Application/
+COPY DeveloperEvaluation.Domain/*.csproj DeveloperEvaluation.Domain/
+COPY DeveloperEvaluation.Infrastructure/*.csproj DeveloperEvaluation.Infrastructure/
 
 # 🔹 Restaurar pacotes NuGet
-RUN dotnet restore "DeveloperEvaluation.API/DeveloperEvaluation.API.csproj"
+RUN dotnet restore DeveloperEvaluation.API/DeveloperEvaluation.API.csproj
 
 # 🔹 Copiar código-fonte restante e compilar
 COPY . .
-WORKDIR "DeveloperEvaluation.API"
+WORKDIR /src/DeveloperEvaluation.API
 RUN dotnet build -c Release -o /app/build
 
 # 🔹 Publicar aplicação
@@ -29,5 +31,9 @@ RUN dotnet publish -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-EXPOSE 8080
-ENTRYPOINT ["dotnet", "DeveloperEvaluation.API.dll", "--urls", "http://0.0.0.0:8080"]
+
+# 🔹 Adiciona healthcheck para verificar se a API está rodando
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s \
+  CMD curl -f http://localhost:8080/health || exit 1
+
+ENTRYPOINT ["dotnet", "DeveloperEvaluation.API.dll"]
