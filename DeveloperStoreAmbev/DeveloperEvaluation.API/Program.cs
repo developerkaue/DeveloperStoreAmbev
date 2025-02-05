@@ -15,6 +15,7 @@ var connectionString = builder.Configuration.GetConnectionString("Postgres");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
+
 // Configuração do MediatR para processar eventos
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(SaleCreatedEventHandler).Assembly));
 

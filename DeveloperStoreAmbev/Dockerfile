@@ -1,8 +1,6 @@
 ﻿# 🔹 Usando imagem oficial do .NET 8.0
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
 
 # 🔹 SDK para build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
@@ -19,7 +17,7 @@ RUN dotnet restore "DeveloperEvaluation.API/DeveloperEvaluation.API.csproj"
 
 # 🔹 Copiar código-fonte restante e compilar
 COPY . .
-WORKDIR "DeveloperEvaluation.API"
+WORKDIR "/src/DeveloperEvaluation.API"
 RUN dotnet build -c Release -o /app/build
 
 # 🔹 Publicar aplicação
@@ -30,4 +28,7 @@ RUN dotnet publish -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+# Garante que a API escute em todas as interfaces
+ENV ASPNETCORE_URLS="http://+:8080"
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "DeveloperEvaluation.API.dll"]

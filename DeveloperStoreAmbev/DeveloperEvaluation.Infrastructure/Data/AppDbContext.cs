@@ -16,10 +16,14 @@ namespace DeveloperEvaluation.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+
 
             modelBuilder.Entity<Sale>()
                 .HasKey(s => s.Id);
+
+            modelBuilder.Entity<Sale>()
+                .Property(s => s.CustomerId)
+                .IsRequired();
 
             modelBuilder.Entity<Sale>()
                 .HasMany(s => s.Items)
@@ -41,7 +45,7 @@ namespace DeveloperEvaluation.Infrastructure.Data
                 .Property(si => si.Total)
                 .HasComputedColumnSql("\"UnitPrice\" * \"Quantity\" - \"Discount\"", stored: true);
 
-
+                        base.OnModelCreating(modelBuilder);
 
         }
     }
