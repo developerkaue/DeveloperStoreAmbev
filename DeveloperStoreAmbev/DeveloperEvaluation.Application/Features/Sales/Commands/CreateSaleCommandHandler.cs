@@ -4,6 +4,7 @@ using DeveloperEvaluation.Application.Features.Sales.Commands;
 using DeveloperEvaluation.Domain.Entities;
 using DeveloperEvaluation.Domain.Repositories;
 using MediatR;
+using System.Data.Entity.Infrastructure;
 
 public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, Guid>
 {
@@ -20,22 +21,47 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, Guid>
 
     public async Task<Guid> Handle(CreateSaleCommand request, CancellationToken cancellationToken)
     {
-        // Validar manualmente os itens antes de mapear
-        foreach (var item in request.Items)
+        try
         {
-            if (item.Quantity > 20)
-                throw new InvalidOperationException("Não é permitido vender mais de 20 unidades do mesmo produto.");
+            
+            if (request.CustomerId == Guid.Empty)
+                throw new ArgumentException("O campo 'customerId' não pode estar vazio.");
+
+           
+            if (request.Items == null || !request.Items.Any())
+                throw new ArgumentException("A venda deve conter pelo menos um item.");
+
+            foreach (var item in request.Items)
+            {
+                if (item.Quantity <= 0)
+                    throw new ArgumentException($"Quantidade inválida para o produto {item.ProductId}. Deve ser maior que zero.");
+
+                if (item.UnitPrice < 0)
+                    throw new ArgumentException($"Preço inválido para o produto {item.ProductId}. O valor deve ser maior ou igual a zero.");
+            }
+
+            // Criando a venda
+            var saleItems = _mapper.Map<List<SaleItem>>(request.Items);
+            var sale = new Sale(request.CustomerId, saleItems);
+
+            await _saleRepository.AddAsync(sale);
+            await _mediator.Publish(new SaleCreatedEvent(sale), cancellationToken);
+
+            return sale.Id;
         }
-
-        // Agora podemos mapear os itens corretamente
-        var saleItems = _mapper.Map<List<SaleItem>>(request.Items);
-        var sale = new Sale(request.CustomerId, saleItems);
-
-        await _saleRepository.AddAsync(sale);
-
-        // 🔹 Publicar o evento corretamente
-        await _mediator.Publish(new SaleCreatedEvent(sale), cancellationToken);
-
-        return sale.Id;
+        catch (DbUpdateException ex)
+        {
+            Console.WriteLine($"[ERROR] DbUpdateException: {ex.InnerException?.Message ?? ex.Message}");
+            throw new Exception($"Erro ao salvar no banco de dados: {ex.InnerException?.Message ?? ex.Message}", ex);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[ERROR] Exception: {ex.InnerException?.Message ?? ex.Message}");
+            throw new Exception($"Erro inesperado ao processar a venda: {ex.InnerException?.Message ?? ex.Message}", ex);
+        }
     }
+
+
+
+
 }
