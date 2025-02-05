@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  # 🔹 Banco de Dados PostgreSQL
+  #Banco de Dados PostgreSQL
   postgres:
     image: postgres:15
     container_name: developer_evaluation_db
@@ -20,7 +20,7 @@ services:
       retries: 5
       start_period: 5s
 
-  # 🔹 Banco de Dados NoSQL MongoDB
+  #Banco de Dados NoSQL MongoDB
   mongodb:
     image: mongo:6.0
     container_name: developer_evaluation_nosql
@@ -33,7 +33,7 @@ services:
     volumes:
       - mongodata:/data/db
 
-  # 🔹 Redis para cache
+  #Redis para cache
   redis:
     image: redis:7.0-alpine
     container_name: developer_evaluation_cache
@@ -42,7 +42,7 @@ services:
     ports:
       - "6379:6379"
 
-  # 🔹 Nossa aplicação .NET API
+  #Nossa aplicação .NET API
   api:
     build:
       context: .
@@ -51,7 +51,7 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__Postgres=Host=postgres;Port=5432;Database=developer_evaluation;Username=developer;Password=devpass;
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=developer_evaluation;Username=developer;Password=devpass;
     ports:
       - "8080:8080"
     depends_on:
