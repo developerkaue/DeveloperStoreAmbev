@@ -53,6 +53,9 @@ namespace DeveloperEvaluation.Infrastructure.Migrations
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid?>("SaleId")
                         .HasColumnType("uuid");
 
