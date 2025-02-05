@@ -36,8 +36,8 @@ namespace DeveloperEvaluation.UnitTests
                     It.IsAny<LogLevel>(),
                     It.IsAny<EventId>(),
                     It.IsAny<It.IsAnyType>(),
-                    It.IsAny<Exception?>(), // ✅ Ajustando para permitir nulo
-                    It.IsAny<Func<It.IsAnyType, Exception?, string>>() // ✅ Ajustando para Exception?
+                    It.IsAny<Exception?>(), 
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>() 
                 ),
                 Times.Once
             );

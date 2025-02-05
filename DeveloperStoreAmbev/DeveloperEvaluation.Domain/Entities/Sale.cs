@@ -15,12 +15,15 @@ namespace DeveloperEvaluation.Domain.Entities
         
         public decimal TotalAmount => Items.Sum(item => item.Total);
 
+        // Construtor padrão para o EF Core
+        private Sale() { }
+
         public Sale(Guid customerId, List<SaleItem> items)
         {
             Id = Guid.NewGuid();
             Date = DateTime.UtcNow;
             CustomerId = customerId;
-            Items = items ?? new List<SaleItem>(); // ✅ Garante que não seja nulo
+            Items = items ?? new List<SaleItem>(); 
             IsCancelled = false;
         }
 

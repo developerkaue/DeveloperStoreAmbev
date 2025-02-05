@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using DeveloperEvaluation.Application.DTOs;
+using DeveloperEvaluation.Application.Events;
 using DeveloperEvaluation.Application.Features.Sales.Commands;
 using DeveloperEvaluation.Application.Features.Sales.Events;
 using DeveloperEvaluation.Domain.Events;

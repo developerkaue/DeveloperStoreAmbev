@@ -13,6 +13,7 @@ namespace DeveloperEvaluation.Application.Features.Sales.Commands
 {
     public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, Guid>
     {
+
         private readonly ISaleRepository _saleRepository;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
@@ -26,18 +27,22 @@ namespace DeveloperEvaluation.Application.Features.Sales.Commands
 
         public async Task<Guid> Handle(CreateSaleCommand request, CancellationToken cancellationToken)
         {
-            // Mapeia os itens da venda
+            // Validar manualmente os itens antes de mapear
+            foreach (var item in request.Items)
+            {
+                if (item.Quantity > 20)
+                    throw new InvalidOperationException("Não é permitido vender mais de 20 unidades do mesmo produto.");
+            }
+
+            // Agora podemos mapear os itens corretamente
             var saleItems = _mapper.Map<List<SaleItem>>(request.Items);
             var sale = new Sale(request.CustomerId, saleItems);
 
-            // Persiste a venda no banco de dados
             await _saleRepository.AddAsync(sale);
-
-            // Dispara o evento de criação da venda
-            await _mediator.Publish(new SaleCreatedEvent(sale)); 
-
+            await _mediator.Publish(new SaleCreatedEvent(sale));
 
             return sale.Id;
         }
+
     }
 }

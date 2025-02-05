@@ -1,5 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DeveloperEvaluation.Domain.Entities;
+using Microsoft.Extensions.Configuration;
+
+using System.IO;
+
 
 namespace DeveloperEvaluation.Infrastructure.Data
 {
