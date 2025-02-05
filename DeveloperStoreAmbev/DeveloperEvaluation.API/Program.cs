@@ -2,11 +2,8 @@
 using DeveloperEvaluation.Domain.Repositories;
 using DeveloperEvaluation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using DeveloperEvaluation.Application.Mappings;
-using MediatR;
 using System.Reflection;
 using DeveloperEvaluation.Application.Features.Sales.Commands;
-using DeveloperEvaluation.Application.Features.Sales.Events;
 using DeveloperEvaluation.Application.Handlers;
 
 
@@ -14,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configuração do Banco de Dados PostgreSQL
 var connectionString = builder.Configuration.GetConnectionString("Postgres");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 

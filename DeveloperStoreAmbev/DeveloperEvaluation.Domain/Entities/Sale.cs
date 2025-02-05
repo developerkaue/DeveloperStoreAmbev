@@ -15,6 +15,7 @@ namespace DeveloperEvaluation.Domain.Entities
         
         public decimal TotalAmount => Items.Sum(item => item.Total);
 
+        // Construtor padrão para o EF Core
         private Sale() { }
 
         public Sale(Guid customerId, List<SaleItem> items)
